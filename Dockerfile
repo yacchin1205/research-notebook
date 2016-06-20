@@ -15,3 +15,6 @@ RUN apt-get update && \
     pip2 install seaborn scipy && \
     pip2 install scikit-learn scikit-image sympy cython patsy \
                  statsmodels cloudpickle dill bokeh h5py
+
+ADD conf/sitecustomize.py /tmp/
+RUN cat /tmp/sitecustomize.py >> /usr/lib/python2.7/sitecustomize.py
