@@ -21,3 +21,6 @@ RUN cat /tmp/sitecustomize.py >> /usr/lib/python2.7/sitecustomize.py
 
 ### for Google BigQuery
 RUN pip2 install --upgrade google-api-python-client oauth2client
+
+### for analyzing EEG data
+RUN pip2 install --upgrade mne
