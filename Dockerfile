@@ -18,3 +18,5 @@ RUN apt-get update && \
 
 ADD conf/sitecustomize.py /tmp/
 RUN cat /tmp/sitecustomize.py >> /usr/lib/python2.7/sitecustomize.py
+
+RUN pip2 install --upgrade google-api-python-client oauth2client
