@@ -24,3 +24,6 @@ RUN pip2 install --upgrade google-api-python-client oauth2client
 
 ### for analyzing EEG data
 RUN pip2 install --upgrade mne
+
+### for py-pursuit
+RUN pip2 install git+https://github.com/yacchin1205/py-pursuit.git
