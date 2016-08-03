@@ -27,3 +27,8 @@ RUN pip2 install --upgrade mne
 
 ### for py-pursuit
 RUN pip2 install git+https://github.com/yacchin1205/py-pursuit.git
+
+### for AutoPrait
+RUN git clone https://github.com/abbshr/implement-of-AutoPlait-algorithm.git /tmp/autoplait && \
+    cd /tmp/autoplait/codes/autoplait/ && make && \
+    mv /tmp/autoplait/codes/autoplait /opt/
