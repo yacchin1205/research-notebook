@@ -16,17 +16,26 @@ RUN apt-get update && \
     pip2 install scikit-learn scikit-image sympy cython patsy \
                  statsmodels cloudpickle dill bokeh h5py
 
+### Also install to Python3
+RUN pip install pandas matplotlib numpy && \
+    pip install seaborn scipy && \
+    pip install scikit-learn scikit-image sympy cython patsy \
+                statsmodels cloudpickle dill bokeh h5py
+
 ADD conf/sitecustomize.py /tmp/
 RUN cat /tmp/sitecustomize.py >> /usr/lib/python2.7/sitecustomize.py
 
 ### for Google BigQuery
 RUN pip2 install --upgrade google-api-python-client oauth2client
+RUN pip install --upgrade google-api-python-client oauth2client
 
 ### for analyzing EEG data
 RUN pip2 install --upgrade mne
+RUN pip install --upgrade mne
 
 ### for py-pursuit
 RUN pip2 install git+https://github.com/yacchin1205/py-pursuit.git
+RUN pip install git+https://github.com/yacchin1205/py-pursuit.git
 
 ### for AutoPrait
 RUN git clone https://github.com/abbshr/implement-of-AutoPlait-algorithm.git /tmp/autoplait && \
