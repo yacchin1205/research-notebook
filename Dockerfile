@@ -44,3 +44,11 @@ RUN git clone https://github.com/abbshr/implement-of-AutoPlait-algorithm.git /tm
 
 ### for TensorFlow
 RUN pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0rc0-cp34-cp34m-linux_x86_64.whl
+
+### for python-fitbit
+RUN git clone https://github.com/orcasgit/python-fitbit /tmp/python-fitbit && \
+    cd /tmp/python-fitbit && \
+    pip install -r requirements/base.txt && \
+    pip install -r requirements/dev.txt && \
+    pip install -r requirements/test.txt && \
+    python3 setup.py install
