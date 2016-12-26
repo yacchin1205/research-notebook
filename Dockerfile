@@ -29,6 +29,10 @@ RUN cat /tmp/sitecustomize.py >> /usr/lib/python2.7/sitecustomize.py
 RUN pip2 install --upgrade google-api-python-client oauth2client
 RUN pip install --upgrade google-api-python-client oauth2client
 
+### for Google DataStore
+RUN pip2 install --upgrade google-cloud-datastore
+RUN pip install --upgrade google-cloud-datastore
+
 ### for analyzing EEG data
 RUN pip2 install --upgrade mne
 RUN pip install --upgrade mne
