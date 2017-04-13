@@ -1,44 +1,21 @@
-FROM jupyter/notebook:4.2.0
+FROM jupyter/scipy-notebook
 MAINTAINER https://twitter.com/yacchin1205
 
+USER root
 ### Prepare PIP
-RUN pip2 install distribute
-
-### Python2 kernel with matplotlib, etc...
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends libav-tools \
-                 libpng-dev libfreetype6-dev libatlas-base-dev \
-                 libopenblas-base libopenblas-dev libjpeg-dev \
-                 gfortran libhdf5-dev && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    pip2 install pandas matplotlib numpy && \
-    pip2 install seaborn scipy && \
-    pip2 install scikit-learn scikit-image sympy cython patsy \
-                 statsmodels cloudpickle dill bokeh h5py
-
-### Also install to Python3
-RUN pip install pandas matplotlib numpy && \
-    pip install seaborn scipy && \
-    pip install scikit-learn scikit-image sympy cython patsy \
-                statsmodels cloudpickle dill bokeh h5py
-
-ADD conf/sitecustomize.py /tmp/
-RUN cat /tmp/sitecustomize.py >> /usr/lib/python2.7/sitecustomize.py
+RUN conda install --quiet --yes pip && \
+    pip install --upgrade -I setuptools
 
 ### for Google BigQuery
-RUN pip2 install --upgrade google-api-python-client oauth2client
 RUN pip install --upgrade google-api-python-client oauth2client
 
 ### for Google DataStore
-RUN pip2 install --upgrade google-cloud-datastore
 RUN pip install --upgrade google-cloud-datastore
 
 ### for analyzing EEG data
-RUN pip2 install --upgrade mne
 RUN pip install --upgrade mne
 
 ### for py-pursuit
-RUN pip2 install git+https://github.com/yacchin1205/py-pursuit.git
 RUN pip install git+https://github.com/yacchin1205/py-pursuit.git
 
 ### for AutoPrait
@@ -47,7 +24,7 @@ RUN git clone https://github.com/abbshr/implement-of-AutoPlait-algorithm.git /tm
     mv /tmp/autoplait/codes/autoplait /opt/
 
 ### for TensorFlow
-RUN pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0rc0-cp34-cp34m-linux_x86_64.whl
+RUN pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.0.1-cp35-cp35m-linux_x86_64.whl
 
 ### for python-fitbit
 RUN git clone https://github.com/orcasgit/python-fitbit /tmp/python-fitbit && \
@@ -59,9 +36,9 @@ RUN git clone https://github.com/orcasgit/python-fitbit /tmp/python-fitbit && \
 
 # extensions for jupyter
 ## nbextensions_configurator
-RUN pip install jupyter_nbextensions_configurator
-RUN mkdir -p $HOME/.local/share && \
-    pip install six \
-    https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master && \
-    jupyter contrib nbextension install --user
+RUN pip install jupyter_nbextensions_configurator  six \
+    https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 
+USER $NB_USER
+RUN mkdir -p $HOME/.local/share && \
+    jupyter contrib nbextension install --user
