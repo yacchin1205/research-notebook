@@ -36,8 +36,7 @@ RUN git clone https://github.com/orcasgit/python-fitbit /tmp/python-fitbit && \
 
 # extensions for jupyter
 ## nbextensions_configurator
-RUN pip install jupyter_nbextensions_configurator  six \
-    https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
+RUN pip install six git+https://github.com/ipython-contrib/jupyter_contrib_nbextensions.git
 
 USER $NB_USER
 RUN mkdir -p $HOME/.local/share && \
