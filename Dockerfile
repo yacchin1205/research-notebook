@@ -38,6 +38,11 @@ RUN git clone https://github.com/orcasgit/python-fitbit /tmp/python-fitbit && \
 ## nbextensions_configurator
 RUN pip install six git+https://github.com/ipython-contrib/jupyter_contrib_nbextensions.git
 
+# Theme for jupyter
+ADD conf /tmp/
 USER $NB_USER
+RUN mkdir -p $HOME/.jupyter/custom/ && \
+    cp /tmp/custom.css $HOME/.jupyter/custom/custom.css
+
 RUN mkdir -p $HOME/.local/share && \
     jupyter contrib nbextension install --user
