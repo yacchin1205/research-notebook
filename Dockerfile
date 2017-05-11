@@ -2,6 +2,10 @@ FROM jupyter/scipy-notebook
 MAINTAINER https://twitter.com/yacchin1205
 
 USER root
+
+### Japanese fonts
+RUN apt-get update && apt-get install -y fonts-takao
+
 ### Prepare PIP
 RUN conda install --quiet --yes pip && \
     pip install --upgrade -I setuptools
