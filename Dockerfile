@@ -52,7 +52,8 @@ RUN apt-get update && apt-get install -y libssl-dev && pip install --upgrade geo
 
 # extensions for jupyter
 ## nbextensions_configurator
-RUN pip install six git+https://github.com/ipython-contrib/jupyter_contrib_nbextensions.git
+RUN pip install jupyter_nbextensions_configurator && \
+    pip install six git+https://github.com/ipython-contrib/jupyter_contrib_nbextensions.git
 
 # Theme for jupyter
 ADD conf /tmp/
@@ -61,4 +62,5 @@ RUN mkdir -p $HOME/.jupyter/custom/ && \
     cp /tmp/custom.css $HOME/.jupyter/custom/custom.css
 
 RUN mkdir -p $HOME/.local/share && \
+    jupyter nbextensions_configurator enable --user && \
     jupyter contrib nbextension install --user
