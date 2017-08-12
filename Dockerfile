@@ -6,6 +6,9 @@ USER root
 ### Japanese fonts
 RUN apt-get update && apt-get install -y fonts-takao
 
+### PyMC
+RUN conda install --quiet --yes pymc
+
 ### Prepare PIP
 RUN conda install --quiet --yes pip && \
     pip install --upgrade -I setuptools
