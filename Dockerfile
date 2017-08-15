@@ -52,6 +52,8 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14
 ### for misfit
 RUN apt-get update && apt-get install -y libssl-dev && pip install --upgrade geopy misfit
 
+### for hmmlearn
+RUN pip install hmmlearn
 
 # extensions for jupyter
 ## nbextensions_configurator
