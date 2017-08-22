@@ -55,6 +55,13 @@ RUN apt-get update && apt-get install -y libssl-dev && pip install --upgrade geo
 ### for hmmlearn
 RUN pip install hmmlearn
 
+### for basemap
+RUN cd /tmp && wget https://github.com/matplotlib/basemap/archive/v1.0.7rel.tar.gz && \
+    tar xf v1.0.7rel.tar.gz && \
+    cd /tmp/basemap-1.0.7rel/geos-3.3.3 && \
+    ./configure && make && make install && \
+    cd /tmp/basemap-1.0.7rel && pip install .
+
 # extensions for jupyter
 ## nbextensions_configurator
 RUN pip install jupyter_nbextensions_configurator && \
