@@ -7,7 +7,8 @@ USER root
 RUN apt-get update && apt-get install -y fonts-takao
 
 ### PyMC
-RUN conda install --quiet --yes pymc
+RUN conda install --quiet --yes pymc && \
+    conda install --quiet --yes -c conda-forge pymc3
 
 ### Prepare PIP
 RUN conda install --quiet --yes pip && \
