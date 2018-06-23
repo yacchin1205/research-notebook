@@ -1,4 +1,4 @@
-FROM jupyter/scipy-notebook
+FROM jupyter/scipy-notebook:latest
 MAINTAINER https://twitter.com/yacchin1205
 
 USER root
