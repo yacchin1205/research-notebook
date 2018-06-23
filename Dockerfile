@@ -4,7 +4,8 @@ MAINTAINER https://twitter.com/yacchin1205
 USER root
 
 ### Japanese fonts
-RUN apt-get update && apt-get install -y fonts-takao
+RUN apt-get update && apt-get install -y fonts-takao && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ### PyMC
 RUN conda install --quiet --yes pymc && \
@@ -44,11 +45,13 @@ RUN git clone https://github.com/orcasgit/python-fitbit /tmp/python-fitbit && \
     python3 setup.py install
 
 ### for pymongo
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6 && \
+RUN apt-get update && apt-get install -y gnupg2 && \
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6 && \
     echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.4 main" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list && \
     apt-get update && \
     apt-get install -y mongodb-org && \
-    pip install pymongo
+    pip install pymongo && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ### for misfit
 RUN apt-get update && apt-get install -y libssl-dev && pip install --upgrade geopy misfit
@@ -57,11 +60,12 @@ RUN apt-get update && apt-get install -y libssl-dev && pip install --upgrade geo
 RUN pip install hmmlearn
 
 ### for basemap
-RUN cd /tmp && wget https://github.com/matplotlib/basemap/archive/v1.0.7rel.tar.gz && \
-    tar xf v1.0.7rel.tar.gz && \
-    cd /tmp/basemap-1.0.7rel/geos-3.3.3 && \
-    ./configure && make && make install && \
-    cd /tmp/basemap-1.0.7rel && pip install .
+RUN apt-get update && apt-get install -y libgeos-dev && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+ENV GEOS_DIR=/usr
+RUN cd /tmp && wget https://github.com/matplotlib/basemap/archive/v1.1.0.tar.gz && \
+    tar xf v1.1.0.tar.gz && \
+    cd /tmp/basemap-1.1.0 && pip install .
 
 # extensions for jupyter
 ## nbextensions_configurator
