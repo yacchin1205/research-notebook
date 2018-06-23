@@ -66,7 +66,12 @@ RUN cd /tmp && wget https://github.com/matplotlib/basemap/archive/v1.0.7rel.tar.
 # extensions for jupyter
 ## nbextensions_configurator
 RUN pip install jupyter_nbextensions_configurator && \
-    pip install six git+https://github.com/ipython-contrib/jupyter_contrib_nbextensions.git
+    pip --no-cache-dir install six \
+    https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master \
+    git+https://github.com/NII-cloud-operation/Jupyter-i18n_cells.git \
+    https://github.com/NII-cloud-operation/Jupyter-LC_run_through/tarball/master \
+    git+https://github.com/NII-cloud-operation/Jupyter-multi_outputs \
+    git+https://github.com/NII-cloud-operation/Jupyter-LC_index.git
 
 # Theme for jupyter
 ADD conf /tmp/
@@ -76,4 +81,9 @@ RUN mkdir -p $HOME/.jupyter/custom/ && \
 
 RUN mkdir -p $HOME/.local/share && \
     jupyter nbextensions_configurator enable --user && \
-    jupyter contrib nbextension install --user
+    jupyter contrib nbextension install --user && \
+    jupyter run-through quick-setup --user && \
+    jupyter nbextension install --py lc_multi_outputs --user && \
+    jupyter nbextension enable --py lc_multi_outputs --user && \
+    jupyter nbextension install --py notebook_index --user && \
+    jupyter nbextension enable --py notebook_index --user
