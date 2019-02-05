@@ -79,6 +79,13 @@ RUN pip install jupyter_nbextensions_configurator && \
     git+https://github.com/NII-cloud-operation/Jupyter-LC_index.git && \
     pip install prompt-toolkit==1.0.15
 
+# Utilities
+RUN pip install papermill && \
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
+    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list && \
+    apt-get update && apt-get install -y google-chrome-stable && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
 # Theme for jupyter
 ADD conf /tmp/
 USER $NB_USER
