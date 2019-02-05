@@ -1,4 +1,4 @@
-# research-notebook
+# research-notebook [![Build Status](https://travis-ci.org/yacchin1205/research-notebook.svg?branch=master)](https://travis-ci.org/yacchin1205/research-notebook)
 
 My Jupyter notebook for my research...
 
