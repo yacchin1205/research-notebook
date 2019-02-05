@@ -63,9 +63,9 @@ RUN pip install hmmlearn && conda install --quiet --yes graphviz
 RUN apt-get update && apt-get install -y libgeos-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 ENV GEOS_DIR=/usr
-RUN cd /tmp && wget https://github.com/matplotlib/basemap/archive/v1.1.0.tar.gz && \
-    tar xf v1.1.0.tar.gz && \
-    cd /tmp/basemap-1.1.0 && pip install .
+RUN cd /tmp && wget https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz && \
+    tar xf v1.2.0rel.tar.gz && \
+    cd /tmp/basemap-1.2.0rel && pip install .
 
 # extensions for jupyter
 ## nbextensions_configurator
