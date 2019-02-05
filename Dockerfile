@@ -57,7 +57,7 @@ RUN apt-get update && apt-get install -y gnupg2 && \
 RUN apt-get update && apt-get install -y libssl-dev && pip install --upgrade geopy misfit
 
 ### for hmmlearn
-RUN pip install hmmlearn
+RUN pip install hmmlearn && conda install --quiet --yes graphviz
 
 ### for basemap
 RUN apt-get update && apt-get install -y libgeos-dev && \
@@ -84,6 +84,9 @@ RUN pip install papermill && \
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
     echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list && \
     apt-get update && apt-get install -y google-chrome-stable && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN pip install ansible awscli python-docx && \
+    apt-get update && apt-get install -y openssh-client openssh-server curl && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Theme for jupyter
