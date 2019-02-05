@@ -72,10 +72,12 @@ RUN cd /tmp && wget https://github.com/matplotlib/basemap/archive/v1.1.0.tar.gz 
 RUN pip install jupyter_nbextensions_configurator && \
     pip --no-cache-dir install six \
     https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master \
+    hide_code \
     git+https://github.com/NII-cloud-operation/Jupyter-i18n_cells.git \
     https://github.com/NII-cloud-operation/Jupyter-LC_run_through/tarball/master \
     git+https://github.com/NII-cloud-operation/Jupyter-multi_outputs \
-    git+https://github.com/NII-cloud-operation/Jupyter-LC_index.git
+    git+https://github.com/NII-cloud-operation/Jupyter-LC_index.git && \
+    pip install prompt-toolkit==1.0.15
 
 # Theme for jupyter
 ADD conf /tmp/
