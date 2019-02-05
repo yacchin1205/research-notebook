@@ -103,3 +103,7 @@ RUN mkdir -p $HOME/.local/share && \
     jupyter nbextension enable --py lc_multi_outputs --user && \
     jupyter nbextension install --py notebook_index --user && \
     jupyter nbextension enable --py notebook_index --user
+
+RUN mkdir /tmp/sample-notebooks
+ADD sample-notebooks /tmp/sample-notebooks
+RUN mv /tmp/sample-notebooks $HOME/
