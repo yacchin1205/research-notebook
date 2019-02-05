@@ -53,9 +53,6 @@ RUN apt-get update && apt-get install -y gnupg2 && \
     pip install pymongo && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-### for misfit
-RUN apt-get update && apt-get install -y libssl-dev && pip install --upgrade geopy misfit
-
 ### for hmmlearn
 RUN pip install hmmlearn && conda install --quiet --yes graphviz
 
@@ -63,9 +60,9 @@ RUN pip install hmmlearn && conda install --quiet --yes graphviz
 RUN apt-get update && apt-get install -y libgeos-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 ENV GEOS_DIR=/usr
-RUN cd /tmp && wget https://github.com/matplotlib/basemap/archive/v1.1.0.tar.gz && \
-    tar xf v1.1.0.tar.gz && \
-    cd /tmp/basemap-1.1.0 && pip install .
+RUN cd /tmp && wget https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz && \
+    tar xf v1.2.0rel.tar.gz && \
+    cd /tmp/basemap-1.2.0rel && pip install .
 
 # extensions for jupyter
 ## nbextensions_configurator
@@ -91,6 +88,10 @@ RUN pip install ansible awscli python-docx && \
 
 # Theme for jupyter
 ADD conf /tmp/
+RUN mkdir /tmp/sample-notebooks
+ADD sample-notebooks /tmp/sample-notebooks
+RUN chown $NB_USER -R /tmp/sample-notebooks
+
 USER $NB_USER
 RUN mkdir -p $HOME/.jupyter/custom/ && \
     cp /tmp/custom.css $HOME/.jupyter/custom/custom.css
@@ -104,6 +105,4 @@ RUN mkdir -p $HOME/.local/share && \
     jupyter nbextension install --py notebook_index --user && \
     jupyter nbextension enable --py notebook_index --user
 
-RUN mkdir /tmp/sample-notebooks
-ADD sample-notebooks /tmp/sample-notebooks
 RUN mv /tmp/sample-notebooks $HOME/
