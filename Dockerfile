@@ -53,9 +53,6 @@ RUN apt-get update && apt-get install -y gnupg2 && \
     pip install pymongo && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-### for misfit
-RUN apt-get update && apt-get install -y libssl-dev && pip install --upgrade geopy misfit
-
 ### for hmmlearn
 RUN pip install hmmlearn && conda install --quiet --yes graphviz
 
