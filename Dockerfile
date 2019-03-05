@@ -33,8 +33,7 @@ RUN git clone https://github.com/abbshr/implement-of-AutoPlait-algorithm.git /tm
     mv /tmp/autoplait/codes/autoplait /opt/
 
 ### for TensorFlow with Keras
-RUN pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.2.1-cp36-cp36m-linux_x86_64.whl && \
-    pip install keras
+RUN pip install tensorflow keras
 
 ### for python-fitbit
 RUN git clone https://github.com/orcasgit/python-fitbit /tmp/python-fitbit && \
