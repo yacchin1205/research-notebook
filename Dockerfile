@@ -83,7 +83,7 @@ RUN pip install papermill && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN pip install --no-cache-dir ansible awscli python-docx \
     git+https://github.com/yacchin1205/convert-eprime.git && \
-    apt-get update && apt-get install -y openssh-client openssh-server curl && \
+    apt-get update && apt-get install -y openssh-client openssh-server curl expect && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Theme for jupyter
