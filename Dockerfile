@@ -55,13 +55,16 @@ RUN apt-get update && apt-get install -y gnupg2 && \
 ### for hmmlearn
 RUN pip install hmmlearn && conda install --quiet --yes graphviz
 
+### for GPy
+RUN pip install gpy
+
 ### for basemap
 RUN apt-get update && apt-get install -y libgeos-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 ENV GEOS_DIR=/usr
 RUN cd /tmp && wget https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz && \
     tar xf v1.2.0rel.tar.gz && \
-    cd /tmp/basemap-1.2.0rel && pip install .
+    cd /tmp/basemap-1.2.0rel && pip install . pyproj==1.9.6
 
 # extensions for jupyter
 ## nbextensions_configurator
