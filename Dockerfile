@@ -88,6 +88,7 @@ RUN pip install --no-cache-dir ansible awscli python-docx \
     git+https://github.com/yacchin1205/convert-eprime.git && \
     apt-get update && apt-get install -y openssh-client openssh-server curl expect && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN conda install -c conda-forge --quiet --yes opencv
 
 # Theme for jupyter
 ADD conf /tmp/
