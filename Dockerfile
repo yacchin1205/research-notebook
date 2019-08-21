@@ -71,8 +71,7 @@ RUN pip install jupyter_nbextensions_configurator && \
     git+https://github.com/NII-cloud-operation/Jupyter-i18n_cells.git \
     https://github.com/NII-cloud-operation/Jupyter-LC_run_through/tarball/master \
     git+https://github.com/NII-cloud-operation/Jupyter-multi_outputs \
-    git+https://github.com/NII-cloud-operation/Jupyter-LC_index.git && \
-    pip install prompt-toolkit==1.0.15
+    git+https://github.com/NII-cloud-operation/Jupyter-LC_index.git
 
 # Utilities
 RUN pip install papermill && \
