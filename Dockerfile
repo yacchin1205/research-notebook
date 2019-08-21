@@ -7,10 +7,6 @@ USER root
 RUN apt-get update && apt-get install -y fonts-takao && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-### PyMC
-RUN conda install --quiet --yes pymc && \
-    conda install --quiet --yes -c conda-forge pymc3
-
 ### Prepare PIP
 RUN conda install --quiet --yes pip && \
     pip install --upgrade -I setuptools
@@ -115,6 +111,8 @@ RUN cd ~ && \
     python setup.py install --yes USE_AVX_INSTRUCTIONS
 RUN pip install face_recognition
 
+# PyMC
+RUN pip install pymc pymc3
 
 # Theme for jupyter
 ADD conf /tmp/
