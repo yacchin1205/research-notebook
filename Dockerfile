@@ -7,10 +7,6 @@ USER root
 RUN apt-get update && apt-get install -y fonts-takao && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-### PyMC
-RUN conda install --quiet --yes pymc && \
-    conda install --quiet --yes -c conda-forge pymc3
-
 ### Prepare PIP
 RUN conda install --quiet --yes pip && \
     pip install --upgrade -I setuptools
@@ -75,8 +71,7 @@ RUN pip install jupyter_nbextensions_configurator && \
     git+https://github.com/NII-cloud-operation/Jupyter-i18n_cells.git \
     https://github.com/NII-cloud-operation/Jupyter-LC_run_through/tarball/master \
     git+https://github.com/NII-cloud-operation/Jupyter-multi_outputs \
-    git+https://github.com/NII-cloud-operation/Jupyter-LC_index.git && \
-    pip install prompt-toolkit==1.0.15
+    git+https://github.com/NII-cloud-operation/Jupyter-LC_index.git
 
 # Utilities
 RUN pip install papermill && \
@@ -115,6 +110,8 @@ RUN cd ~ && \
     python setup.py install --yes USE_AVX_INSTRUCTIONS
 RUN pip install face_recognition
 
+# PyMC
+RUN pip install pymc pymc3
 
 # Theme for jupyter
 ADD conf /tmp/
