@@ -123,6 +123,9 @@ USER $NB_USER
 RUN mkdir -p $HOME/.jupyter/custom/ && \
     cp /tmp/custom.css $HOME/.jupyter/custom/custom.css
 
+RUN mkdir -p $HOME/.ipython/profile_default/startup && \
+    cp /tmp/nbnotifier.py $HOME/.ipython/profile_default/startup/nbnotifier.py
+
 RUN mkdir -p $HOME/.local/share && \
     jupyter nbextensions_configurator enable --user && \
     jupyter contrib nbextension install --user && \
