@@ -110,6 +110,9 @@ RUN cd ~ && \
     python setup.py install --yes USE_AVX_INSTRUCTIONS
 RUN pip install face_recognition
 
+# Firebase
+RUN pip install firebase-admin
+
 # PyMC
 RUN pip install pymc pymc3
 
