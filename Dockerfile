@@ -116,6 +116,12 @@ RUN pip install firebase-admin
 # PyMC
 RUN pip install pymc pymc3
 
+# PDF
+RUN pip install svgwrite PyPDF2
+RUN apt-get -y update && apt-get install -y --fix-missing \
+    librsvg2-bin \
+    && apt-get clean && rm -rf /tmp/* /var/tmp/*
+
 # Theme for jupyter
 ADD conf /tmp/
 RUN mkdir /tmp/sample-notebooks
