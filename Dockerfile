@@ -122,6 +122,9 @@ RUN apt-get -y update && apt-get install -y --fix-missing \
     librsvg2-bin \
     && apt-get clean && rm -rf /tmp/* /var/tmp/*
 
+# NLTK
+RUN conda install nltk docx2txt python-docx
+
 # Theme for jupyter
 ADD conf /tmp/
 RUN mkdir /tmp/sample-notebooks
