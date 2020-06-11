@@ -126,6 +126,10 @@ RUN apt-get -y update && apt-get install -y --fix-missing \
 RUN conda install nltk docx2txt python-docx && \
     conda install -c conda-forge spacy && \
     python -m spacy download en_core_web_sm
+RUN pip install semantic-text-similarity
+
+# Kernel Gateway
+RUN conda install jupyter_kernel_gateway
 
 # Theme for jupyter
 ADD conf /tmp/
