@@ -43,11 +43,7 @@ RUN git clone https://github.com/orcasgit/python-fitbit /tmp/python-fitbit && \
     rm -fr /tmp/python-fitbit
 
 ### for pymongo
-RUN apt-get update && apt-get install -y gnupg2 && \
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6 && \
-    echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.4 main" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list && \
-    apt-get update && \
-    apt-get install -y mongodb-org && \
+RUN apt-get update && apt-get install -y gnupg2 mongodb && \
     pip --no-cache-dir install pymongo && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -136,6 +132,19 @@ RUN conda install nltk docx2txt python-docx && \
     python -m spacy download en_core_web_sm && \
     conda clean --all -f -y
 RUN pip --no-cache-dir install semantic-text-similarity
+
+# Xvfb
+RUN apt-get update && apt-get install -y xvfb && rm -rf /var/lib/apt/lists/*
+
+# ChromeDriver
+ENV CHROMEDRIVER_VERSION=75.0.3770.90
+RUN cd /usr/local/sbin/ && \
+    wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip && \
+    unzip chromedriver_linux64.zip && \
+    chmod +x chromedriver && \
+    rm chromedriver_linux64.zip
+
+RUN pip --no-cache-dir install selenium
 
 # Kernel Gateway
 RUN conda install jupyter_kernel_gateway && \
