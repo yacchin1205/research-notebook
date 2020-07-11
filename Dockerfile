@@ -137,7 +137,7 @@ RUN pip --no-cache-dir install semantic-text-similarity
 RUN apt-get update && apt-get install -y xvfb && rm -rf /var/lib/apt/lists/*
 
 # ChromeDriver
-ENV CHROMEDRIVER_VERSION=75.0.3770.90
+ENV CHROMEDRIVER_VERSION=83.0.4103.39
 RUN cd /usr/local/sbin/ && \
     wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip && \
