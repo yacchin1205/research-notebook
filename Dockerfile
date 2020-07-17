@@ -9,50 +9,51 @@ RUN apt-get update && apt-get install -y fonts-takao && \
 
 ### Prepare PIP
 RUN conda install --quiet --yes pip && \
-    pip install --upgrade -I setuptools
+    pip --no-cache-dir install --upgrade -I setuptools && \
+    conda clean --all -f -y
 
 ### for Google BigQuery
-RUN pip install --upgrade google-api-python-client oauth2client
+RUN pip --no-cache-dir install --upgrade google-api-python-client oauth2client
 
 ### for Google DataStore
-RUN pip install --upgrade google-cloud-datastore
+RUN pip --no-cache-dir install --upgrade google-cloud-datastore
 
 ### for analyzing EEG data
-RUN pip install --upgrade mne
+RUN pip --no-cache-dir install --upgrade mne
 
 ### for py-pursuit
-RUN pip install git+https://github.com/yacchin1205/py-pursuit.git
+RUN pip --no-cache-dir install git+https://github.com/yacchin1205/py-pursuit.git
 
 ### for AutoPrait
 RUN git clone https://github.com/abbshr/implement-of-AutoPlait-algorithm.git /tmp/autoplait && \
     cd /tmp/autoplait/codes/autoplait/ && make && \
-    mv /tmp/autoplait/codes/autoplait /opt/
+    mv /tmp/autoplait/codes/autoplait /opt/ && \
+    rm -fr /tmp/autoplait
 
 ### for TensorFlow with Keras
-RUN pip install tensorflow keras
+RUN pip --no-cache-dir install tensorflow keras
 
 ### for python-fitbit
 RUN git clone https://github.com/orcasgit/python-fitbit /tmp/python-fitbit && \
     cd /tmp/python-fitbit && \
-    pip install -r requirements/base.txt && \
-    pip install -r requirements/dev.txt && \
-    pip install -r requirements/test.txt && \
-    python3 setup.py install
+    pip --no-cache-dir install -r requirements/base.txt && \
+    pip --no-cache-dir install -r requirements/dev.txt && \
+    pip --no-cache-dir install -r requirements/test.txt && \
+    python3 setup.py install && \
+    rm -fr /tmp/python-fitbit
 
 ### for pymongo
-RUN apt-get update && apt-get install -y gnupg2 && \
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6 && \
-    echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.4 main" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list && \
-    apt-get update && \
-    apt-get install -y mongodb-org && \
-    pip install pymongo && \
+RUN apt-get update && apt-get install -y gnupg2 mongodb && \
+    pip --no-cache-dir install pymongo && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ### for hmmlearn
-RUN pip install hmmlearn && conda install --quiet --yes graphviz
+RUN pip --no-cache-dir install hmmlearn && \
+    conda install --quiet --yes graphviz && \
+    conda clean --all -f -y
 
 ### for GPy
-RUN pip install gpy
+RUN pip --no-cache-dir install gpy
 
 ### for basemap
 RUN apt-get update && apt-get install -y libgeos-dev && \
@@ -60,11 +61,12 @@ RUN apt-get update && apt-get install -y libgeos-dev && \
 ENV GEOS_DIR=/usr
 RUN cd /tmp && wget https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz && \
     tar xf v1.2.0rel.tar.gz && \
-    cd /tmp/basemap-1.2.0rel && pip install . pyproj==1.9.6
+    cd /tmp/basemap-1.2.0rel && pip install . pyproj==1.9.6 && \
+    rm -fr /tmp/basemap-1.2.0rel
 
 # extensions for jupyter
 ## nbextensions_configurator
-RUN pip install jupyter_nbextensions_configurator && \
+RUN pip --no-cache-dir install jupyter_nbextensions_configurator && \
     pip --no-cache-dir install six \
     https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master \
     hide_code \
@@ -74,7 +76,7 @@ RUN pip install jupyter_nbextensions_configurator && \
     git+https://github.com/NII-cloud-operation/Jupyter-LC_index.git
 
 # Utilities
-RUN pip install papermill && \
+RUN pip --no-cache-dir install papermill && \
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
     echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list && \
     apt-get update && apt-get install -y google-chrome-stable && \
@@ -83,7 +85,8 @@ RUN pip install --no-cache-dir ansible awscli python-docx \
     git+https://github.com/yacchin1205/convert-eprime.git && \
     apt-get update && apt-get install -y openssh-client openssh-server curl expect && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN conda install -c conda-forge --quiet --yes opencv
+RUN conda install -c conda-forge --quiet --yes opencv && \
+    conda clean --all -f -y
 
 # Face Recognition
 RUN apt-get -y update && apt-get install -y --fix-missing \
@@ -107,17 +110,18 @@ RUN cd ~ && \
     mkdir -p dlib && \
     git clone -b 'v19.9' --single-branch https://github.com/davisking/dlib.git dlib/ && \
     cd  dlib/ && \
-    python setup.py install --yes USE_AVX_INSTRUCTIONS
-RUN pip install face_recognition
+    python setup.py install --yes USE_AVX_INSTRUCTIONS && \
+    rm -fr dlib/
+RUN pip --no-cache-dir install face_recognition
 
 # Firebase
-RUN pip install firebase-admin
+RUN pip --no-cache-dir install firebase-admin
 
 # PyMC
-RUN pip install pymc pymc3
+RUN pip --no-cache-dir install pymc pymc3
 
 # PDF
-RUN pip install svgwrite PyPDF2
+RUN pip --no-cache-dir install svgwrite PyPDF2
 RUN apt-get -y update && apt-get install -y --fix-missing \
     librsvg2-bin \
     && apt-get clean && rm -rf /tmp/* /var/tmp/*
@@ -125,11 +129,26 @@ RUN apt-get -y update && apt-get install -y --fix-missing \
 # NLTK
 RUN conda install nltk docx2txt python-docx && \
     conda install -c conda-forge spacy && \
-    python -m spacy download en_core_web_sm
-RUN pip install semantic-text-similarity
+    python -m spacy download en_core_web_sm && \
+    conda clean --all -f -y
+RUN pip --no-cache-dir install semantic-text-similarity
+
+# Xvfb
+RUN apt-get update && apt-get install -y xvfb && rm -rf /var/lib/apt/lists/*
+
+# ChromeDriver
+ENV CHROMEDRIVER_VERSION=83.0.4103.39
+RUN cd /usr/local/sbin/ && \
+    wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip && \
+    unzip chromedriver_linux64.zip && \
+    chmod +x chromedriver && \
+    rm chromedriver_linux64.zip
+
+RUN pip --no-cache-dir install selenium
 
 # Kernel Gateway
-RUN conda install jupyter_kernel_gateway
+RUN conda install jupyter_kernel_gateway && \
+    conda clean --all -f -y
 
 # Theme for jupyter
 ADD conf /tmp/
