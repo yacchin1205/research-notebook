@@ -81,7 +81,7 @@ RUN pip --no-cache-dir install papermill && \
     echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list && \
     apt-get update && apt-get install -y google-chrome-stable && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN pip install --no-cache-dir ansible awscli python-docx \
+RUN pip install --no-cache-dir ansible awscli python-docx openpyxl \
     git+https://github.com/yacchin1205/convert-eprime.git && \
     apt-get update && apt-get install -y openssh-client openssh-server curl expect && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -137,7 +137,7 @@ RUN pip --no-cache-dir install semantic-text-similarity
 RUN apt-get update && apt-get install -y xvfb && rm -rf /var/lib/apt/lists/*
 
 # ChromeDriver
-ENV CHROMEDRIVER_VERSION=89.0.4389.23
+ENV CHROMEDRIVER_VERSION=88.0.4324.96
 RUN cd /usr/local/sbin/ && \
     wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip && \
