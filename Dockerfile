@@ -123,7 +123,7 @@ RUN pip --no-cache-dir install pymc pymc3
 # PDF
 RUN pip --no-cache-dir install svgwrite PyPDF2
 RUN apt-get -y update && apt-get install -y --fix-missing \
-    librsvg2-bin \
+    librsvg2-bin imagemagick \
     && apt-get clean && rm -rf /tmp/* /var/tmp/*
 
 # NLTK
