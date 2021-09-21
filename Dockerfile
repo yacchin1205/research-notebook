@@ -3,8 +3,8 @@ MAINTAINER https://twitter.com/yacchin1205
 
 USER root
 
-### Developer tools & Japanese fonts
-RUN apt-get update && apt-get install -y build-essential fonts-takao && \
+### Japanese fonts
+RUN apt-get update && apt-get install -y fonts-takao && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ### Prepare PIP
@@ -20,15 +20,6 @@ RUN pip --no-cache-dir install --upgrade google-cloud-datastore
 
 ### for analyzing EEG data
 RUN pip --no-cache-dir install --upgrade mne
-
-### for py-pursuit
-RUN pip --no-cache-dir install git+https://github.com/yacchin1205/py-pursuit.git
-
-### for AutoPrait
-RUN git clone https://github.com/abbshr/implement-of-AutoPlait-algorithm.git /tmp/autoplait && \
-    cd /tmp/autoplait/codes/autoplait/ && make && \
-    mv /tmp/autoplait/codes/autoplait /opt/ && \
-    rm -fr /tmp/autoplait
 
 ### for TensorFlow with Keras
 RUN pip --no-cache-dir install tensorflow keras
@@ -52,18 +43,6 @@ RUN pip --no-cache-dir install hmmlearn && \
     conda install --quiet --yes graphviz && \
     conda clean --all -f -y
 
-### for GPy
-RUN pip --no-cache-dir install gpy
-
-### for basemap
-RUN apt-get update && apt-get install -y libgeos-dev && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-ENV GEOS_DIR=/usr
-RUN cd /tmp && wget https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz && \
-    tar xf v1.2.0rel.tar.gz && \
-    cd /tmp/basemap-1.2.0rel && pip install . pyproj==1.9.6 && \
-    rm -fr /tmp/basemap-1.2.0rel
-
 # extensions for jupyter
 ## nbextensions_configurator
 RUN pip --no-cache-dir install jupyter_nbextensions_configurator && \
@@ -76,7 +55,7 @@ RUN pip --no-cache-dir install jupyter_nbextensions_configurator && \
     git+https://github.com/NII-cloud-operation/Jupyter-LC_index.git
 
 # Utilities
-RUN pip --no-cache-dir install papermill && \
+RUN conda install -c conda-forge --quiet --yes papermill && \
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
     echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list && \
     apt-get update && apt-get install -y google-chrome-stable && \
@@ -146,13 +125,8 @@ RUN cd /usr/local/sbin/ && \
 
 RUN pip --no-cache-dir install selenium
 
-# MMDetection
-RUN pip install -U torch==1.5.1+cu101 torchvision==0.6.1+cu101 -f https://download.pytorch.org/whl/torch_stable.html && \
-    pip install mmcv-full && \
-    pip install git+https://github.com/open-mmlab/mmdetection.git
-
 # DoWhy
-RUN conda install -c conda-forge dowhy && \
+RUN conda install -c conda-forge --quiet --yes dowhy && \
     conda clean --all -f -y
 
 # Kernel Gateway
