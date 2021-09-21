@@ -3,8 +3,8 @@ MAINTAINER https://twitter.com/yacchin1205
 
 USER root
 
-### Japanese fonts
-RUN apt-get update && apt-get install -y fonts-takao && \
+### Developer tools & Japanese fonts
+RUN apt-get update && apt-get install -y build-essential fonts-takao && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ### Prepare PIP
