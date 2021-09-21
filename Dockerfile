@@ -151,6 +151,10 @@ RUN pip install -U torch==1.5.1+cu101 torchvision==0.6.1+cu101 -f https://downlo
     pip install mmcv-full && \
     pip install git+https://github.com/open-mmlab/mmdetection.git
 
+# DoWhy
+RUN conda install -c conda-forge dowhy && \
+    conda clean --all -f -y
+
 # Kernel Gateway
 RUN conda install jupyter_kernel_gateway && \
     conda clean --all -f -y
